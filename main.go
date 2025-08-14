@@ -10,27 +10,40 @@ func main() {
 	var (
 		firstNum  int
 		secondNum int
+		input     string
 		operation string
 		result    float64
 	)
 
-	fmt.Println("Input a first number: ")
-	_, err := fmt.Scan(&firstNum)
-	if err != nil {
-		fmt.Printf("Error: %q\n", err)
-		return
+	for {
+		fmt.Println("Input a first number: ")
+		_, err := fmt.Scan(&firstNum)
+		if err != nil {
+			fmt.Printf("Error: %q\n", err)
+			fmt.Scan(&input)
+			continue
+		} else {
+			for {
+				fmt.Println("Input a second number: ")
+				_, err = fmt.Scan(&secondNum)
+				if err != nil {
+					fmt.Printf("Error: %q\n", err)
+					fmt.Scan(&input)
+					continue
+				} else {
+					break
+				}
+			}
+			break
+		}
 	}
 
-	fmt.Println("Input a second number: ")
-	_, err = fmt.Scan(&secondNum)
-	if err != nil {
-		fmt.Printf("Error: %q\n", err)
-		return
-	}
-
-	for strings.ToLower(strings.Trim(operation, " ")) != "stop" {
+	for {
 		fmt.Println("Input type of operation (+, -, *, /, %, avg, history, undo) or \"stop\" to exit: ")
 		fmt.Scan(&operation)
+		if strings.ToLower(strings.Trim(operation, " ")) == "stop" {
+			break
+		}
 		switch operation {
 		case "+":
 			result = float64(calc.Sum(firstNum, secondNum))
